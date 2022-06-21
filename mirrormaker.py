@@ -84,7 +84,7 @@ class MirrorMaker:
                       (x2 + 1, y2 + 1, -depth), (x1, y2 + 1, -depth)]
                 self._add_face(sq, [1, 2, 3, 4])
 
-    def export(self, file="test_sword.obj"):
+    def export(self, file):
         with open(file, "w") as file:
             for v in self.vertices:
                 file.write("v {} {} {}\n".format(*v))
@@ -94,5 +94,5 @@ class MirrorMaker:
 
 if __name__ == "__main__":
     mm = MirrorMaker()
-    mm.load("test_sword.txt")
-    mm.export()
+    mm.load("test_car.txt")
+    mm.export(file="test_car.obj")
