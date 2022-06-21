@@ -56,19 +56,34 @@ for depth, region in regions.items():
         x1, y1 = topleft
         x2, y2 = bottomright
 
+        sq = [(x1, y1, depth), (x1, y2 + 1, depth),
+              (x1, y2 + 1, -depth), (x1, y1, -depth)]
+        l = len(real_vertices)
+        faces.append((l + 1, l + 2, l + 3, l + 4))
+        real_vertices.extend(sq)
         # create top
-        faces.append(((vertices.index((x1, y1, depth)) * 8) + 1,
-                      (vertices.index((x1, y2, depth)) * 8) + 3,
-                      (vertices.index((x1, y2, depth)) * 8) + 7,
-                      (vertices.index((x1, y1, depth)) * 8) + 5))
+        # faces.append(((vertices.index((x1, y1, depth)) * 8) + 1,
+        #               (vertices.index((x1, y2, depth)) * 8) + 3,
+        #               (vertices.index((x1, y2, depth)) * 8) + 7,
+        #               (vertices.index((x1, y1, depth)) * 8) + 5))
 
         # create front
+        # faces.append(((vertices.index((x1, y2, depth)) * 8) + 1,
+        #               (vertices.index((x1, y2, depth)) * 8) + 5,
+        #               (vertices.index((x2, y2, depth)) * 8) + 5,
+        #               (vertices.index((x2, y2, depth)) * 8) + 1))
+
         # create back
+        # faces.append(((vertices.index((x1, y1, depth)) * 8) + 1,
+        #               (vertices.index((x1, y2, depth)) * 8) + 3,
+        #               (vertices.index((x1, y2, depth)) * 8) + 7,
+        #               (vertices.index((x1, y1, depth)) * 8) + 5))
+
         # create bottom
-        faces.append(((vertices.index((x2, y1, depth)) * 8) + 2,
-                      (vertices.index((x2, y2, depth)) * 8) + 4,
-                      (vertices.index((x2, y2, depth)) * 8) + 8,
-                      (vertices.index((x2, y1, depth)) * 8) + 6))
+        # faces.append(((vertices.index((x2, y1, depth)) * 8) + 2,
+        #               (vertices.index((x2, y2, depth)) * 8) + 4,
+        #               (vertices.index((x2, y2, depth)) * 8) + 8,
+        #               (vertices.index((x2, y1, depth)) * 8) + 6))
 
 file = "test_sword.obj"
 with open(file, "w") as file:
