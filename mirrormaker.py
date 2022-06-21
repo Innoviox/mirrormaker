@@ -4,21 +4,22 @@ with open("test_sword.txt") as f:
     for x, line in enumerate(f):
         for y, ch in enumerate(line):
             if ch in '123456789':
-                vertices.append((x, y))  # int(ch)))
+                vertices.append((x, y, int(ch)))
 
 real_vertices = []
 faces = []
 for v in vertices:
     # each vertex gets a square around it
-    x, y = v
-    sq = [(x, y, 0), (x + 1, y, 0), (x, y + 1, 0), (x + 1, y + 1, 0)]  # todo z
+    x, y, depth = v
 
-    l = len(real_vertices)
-    faces.append((l + 1, l + 2, l + 4, l + 3))
-    # faces.append((l + 1, l + 2, l + 3))
-    # faces.append((l + 2, l + 3, l + 4))
+    for d in [depth, -depth]:
+        sq = [(x, y, d), (x + 1, y, d), (x, y + 1, d),
+              (x + 1, y + 1, d)]  # todo z
 
-    real_vertices.extend(sq)
+        l = len(real_vertices)
+        faces.append((l + 1, l + 2, l + 4, l + 3))
+
+        real_vertices.extend(sq)
 
 file = "test_sword.obj"
 with open(file, "w") as file:
