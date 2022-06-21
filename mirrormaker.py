@@ -18,8 +18,8 @@ def find_regions(s):
                     b += 1
                 b -= 1
 
-                if not any(r[1] == (a, b) for r in regions[char]):
-                    regions[char].append((start, (a, b)))
+                if not any(r[1] == (a, b) for r in regions[int(char)]):
+                    regions[int(char)].append((start, (a, b)))
     return regions
 
 
@@ -51,7 +51,24 @@ for v in vertices:
         real_vertices.extend(sq)
 
 for depth, region in regions.items():
-    ...
+    for r in region:
+        topleft, bottomright = r
+        x1, y1 = topleft
+        x2, y2 = bottomright
+
+        # create top
+        faces.append(((vertices.index((x1, y1, depth)) * 8) + 1,
+                      (vertices.index((x1, y2, depth)) * 8) + 3,
+                      (vertices.index((x1, y2, depth)) * 8) + 7,
+                      (vertices.index((x1, y1, depth)) * 8) + 5))
+
+        # create front
+        # create back
+        # create bottom
+        faces.append(((vertices.index((x2, y1, depth)) * 8) + 3,
+                      (vertices.index((x2, y2, depth)) * 8) + 1,
+                      (vertices.index((x2, y2, depth)) * 8) + 5,
+                      (vertices.index((x2, y1, depth)) * 8) + 7))
 
 file = "test_sword.obj"
 with open(file, "w") as file:
