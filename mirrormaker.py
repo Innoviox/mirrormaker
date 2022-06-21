@@ -65,10 +65,10 @@ for depth, region in regions.items():
         # create front
         # create back
         # create bottom
-        faces.append(((vertices.index((x2, y1, depth)) * 8) + 3,
-                      (vertices.index((x2, y2, depth)) * 8) + 1,
-                      (vertices.index((x2, y2, depth)) * 8) + 5,
-                      (vertices.index((x2, y1, depth)) * 8) + 7))
+        faces.append(((vertices.index((x2, y1, depth)) * 8) + 2,
+                      (vertices.index((x2, y2, depth)) * 8) + 4,
+                      (vertices.index((x2, y2, depth)) * 8) + 8,
+                      (vertices.index((x2, y1, depth)) * 8) + 6))
 
 file = "test_sword.obj"
 with open(file, "w") as file:
