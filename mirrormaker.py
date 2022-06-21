@@ -1,17 +1,27 @@
-import tkinter as tk
+vertices = []
 
-class MirrorMaker(tk.Tk):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+with open("test_sword.txt") as f:
+    for x, line in enumerate(f):
+        for y, ch in enumerate(line):
+            if ch in '123456789':
+                vertices.append((x, y))  # int(ch)))
 
-        self.buttons = []
+real_vertices = []
+faces = []
+for v in vertices:
+    # each vertex gets two triangles
+    x, y = v
+    sq = [(x, y, 0), (x + 1, y, 0), (x, y + 1, 0), (x + 1, y + 1, 0)]  # todo z
 
-        white = True
-        for i in range(15):
-            for j in range(15):
-                button = tk.Label(self, bg='white' if white else 'gray', width=10, height=10)
-                button.grid(column = i, row = j)
-                white = not white
+    l = len(real_vertices)
+    faces.append((l + 1, l + 2, l + 3))
+    faces.append((l + 2, l + 3, l + 4))
 
+    real_vertices.extend(sq)
 
-MirrorMaker().mainloop()
+file = "test_sword.obj"
+with open(file, "w") as file:
+    for v in real_vertices:
+        file.write("v {} {} {}\n".format(*v))
+    for f in faces:
+        file.write("f {} {} {}\n".format(*f))
