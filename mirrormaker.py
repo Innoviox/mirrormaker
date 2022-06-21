@@ -64,32 +64,25 @@ class MirrorMaker:
                 x1, y1 = topleft
                 x2, y2 = bottomright
 
+                # create top
                 sq = [(x1, y1, depth), (x1, y2 + 1, depth),
                       (x1, y2 + 1, -depth), (x1, y1, -depth)]
                 self._add_face(sq, [1, 2, 3, 4])
-                # create top
-                # faces.append(((vertices.index((x1, y1, depth)) * 8) + 1,
-                #               (vertices.index((x1, y2, depth)) * 8) + 3,
-                #               (vertices.index((x1, y2, depth)) * 8) + 7,
-                #               (vertices.index((x1, y1, depth)) * 8) + 5))
-
-                # create front
-                # faces.append(((vertices.index((x1, y2, depth)) * 8) + 1,
-                #               (vertices.index((x1, y2, depth)) * 8) + 5,
-                #               (vertices.index((x2, y2, depth)) * 8) + 5,
-                #               (vertices.index((x2, y2, depth)) * 8) + 1))
-
-                # create back
-                # faces.append(((vertices.index((x1, y1, depth)) * 8) + 1,
-                #               (vertices.index((x1, y2, depth)) * 8) + 3,
-                #               (vertices.index((x1, y2, depth)) * 8) + 7,
-                #               (vertices.index((x1, y1, depth)) * 8) + 5))
 
                 # create bottom
-                # faces.append(((vertices.index((x2, y1, depth)) * 8) + 2,
-                #               (vertices.index((x2, y2, depth)) * 8) + 4,
-                #               (vertices.index((x2, y2, depth)) * 8) + 8,
-                #               (vertices.index((x2, y1, depth)) * 8) + 6))
+                sq = [(x2 + 1, y1, depth), (x2 + 1, y2 + 1, depth),
+                      (x2 + 1, y2 + 1, -depth), (x2 + 1, y1, -depth)]
+                self._add_face(sq, [1, 2, 3, 4])
+
+                # create back
+                sq = [(x1, y1, depth), (x2 + 1, y1, depth),
+                      (x2 + 1, y1, -depth), (x1, y1, -depth)]
+                self._add_face(sq, [1, 2, 3, 4])
+
+                # create front
+                sq = [(x1, y2 + 1, depth), (x2 + 1, y2 + 1, depth),
+                      (x2 + 1, y2 + 1, -depth), (x1, y2 + 1, -depth)]
+                self._add_face(sq, [1, 2, 3, 4])
 
     def export(self, file="test_sword.obj"):
         with open(file, "w") as file:
